@@ -2,7 +2,7 @@
     config(
         materialized='incremental',
         unique_key='order_id',
-        merge_update_columns=['status', 'revneue', 'number_of_lines', 'total_units', 'customer_country']
+        merge_update_columns=['status', 'revenue', 'number_of_lines', 'total_units', 'customer_country']
     )
 }}
 
@@ -24,6 +24,7 @@ with orders_enriched as (
          status,
          order_total_amount as revenue,
          line_count as number_of_lines,
+         total_quantity as total_units,
          customer_country,
         {{ dbt_utils.generate_surrogate_key(['order_id']) }} as order_key
     from orders_enriched

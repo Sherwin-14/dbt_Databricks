@@ -11,13 +11,13 @@ with line_items as (
 
     select * from {{ ref('int_order_items_with_product') }}
     {% if is_incremental() %}
-    when order_date > (select max(order_date) from {{ this }})
+    where order_date > (select max(order_date) from {{ this }})
     {% endif %}
 )
 
 , final as (
     select 
-          order_items_id,
+          order_item_id,
           order_id,
           product_id,
           quantity,

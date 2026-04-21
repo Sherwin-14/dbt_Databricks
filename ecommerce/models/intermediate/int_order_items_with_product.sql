@@ -1,5 +1,5 @@
 with orders as (
-    select *
+    select order_id, customer_id, order_date, status
     from {{ ref('stg_orders') }}
 )
 , products as (
@@ -7,9 +7,9 @@ with orders as (
     from {{ ref('stg_products') }}
 )
 
-, orders as (
-    select order_id, customer_id, order_date, status
-    from {{ ref('stg_orders') }}
+, order_items as (
+    select *
+    from {{ ref('stg_order_items') }}
 )
 
 , final as (

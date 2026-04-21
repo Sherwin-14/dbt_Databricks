@@ -6,7 +6,7 @@ with orders as (
 , customers as (
     select *
     from {{ ref('scd_customers') }}
-    where dbt_valid is null
+    where dbt_valid_to is null
 )
 , order_items as (
     select 
